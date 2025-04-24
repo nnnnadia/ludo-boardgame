@@ -122,7 +122,8 @@ const findPath = (coordinates: number[]): number[][] => {
     throw new Error('Starting coordinates not found in path')
   }
 
-  return duplicatedPath.slice(startIndex, startIndex + 48)
+  const pathLength = duplicatedPath.length / 2
+  return duplicatedPath.slice(startIndex, startIndex + pathLength)
 }
 
 export { findPath }
