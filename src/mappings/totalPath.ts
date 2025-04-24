@@ -1,7 +1,7 @@
-import { duplicatedPath } from '../constants/paths'
+import { selectPath } from './pathSelector'
 
-const findPath = (coordinates: number[]): number[][] => {
-  console.log(duplicatedPath)
+const findPath = (coordinates: number[], pathType: 'normal' | 'short' = 'normal'): number[][] => {
+  const duplicatedPath = selectPath(pathType)
   const startIndex = duplicatedPath.findIndex(
     ([x, y]) => x === coordinates[0] && y === coordinates[1],
   )
