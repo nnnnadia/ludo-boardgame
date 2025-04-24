@@ -1,38 +1,42 @@
 <script setup>
-const path = [[1, 6], [1, 7], [1, 8], [1, 9], [1, 10], [2, 10], [3, 10], [4, 10], [5, 10], [6, 10], [6, 11], [6, 12], [6, 13], [6, 14], [6, 15], [7, 15], [8, 15], [9, 15], [10, 15], [10, 14], [10, 13], [10, 12], [10, 11], [10, 10], [11, 10], [12, 10], [13, 10], [14, 10], [15, 10], [15, 9], [15, 8], [15, 7], [15, 6], [14, 6], [13, 6], [12, 6], [11, 6], [10, 6], [10, 5], [10, 4], [10, 3], [10, 2], [10, 1], [9, 1], [8, 1],[7, 1], [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6], [5, 6], [4, 6], [3, 6], [2, 6]]
-const totalPath = () => {
-  for (let i = 0; i < 6; i++) {
-    
-  }
-}
+import { findPath } from '../mappings/totalPath'
+import { ref } from 'vue'
+import { ZONE_SIZE, BOARD_SIZE } from '../constants/board'
+
+/**
+ * Generates coordinates for a zone based on its position
+ * @param moveRight - Whether to move the zone to the right
+ * @param moveDown - Whether to move the zone down
+ * @returns Array of [row, col] coordinates for the zone
+ */
 const zoneGenerator = (moveRight, moveDown) => {
   const zone = []
-  for (let i = 1; i < 6; i++) {
-    for (let j = 1; j < 6; j++) {
-      zone.push(moveDown ? i + 10 : i, moveRight ? j + 10 : j)
+  for (let r = 1; r <= ZONE_SIZE; r++) {
+    for (let c = 1; c <= ZONE_SIZE; c++) {
+      const row = r + moveDown * 10
+      const col = c + moveRight * 10
+      zone.push([row, col])
     }
   }
   return zone
 }
 
-const redZone = zoneGenerator(false, false)
-const blueZone = zoneGenerator(true, false)
-const yellowZone = zoneGenerator(true, true)
-const greenZone = zoneGenerator(false, true)
+const redZone = ref(zoneGenerator(false, false))
+const blueZone = ref(zoneGenerator(true, false))
+const yellowZone = ref(zoneGenerator(true, true))
+const greenZone = ref(zoneGenerator(false, true))
 
 const isZone = (zone, row, col) => {
-  for (let i = 0; i < zone.length; i += 2) {
-    if (zone[i] === row && zone[i + 1] === col) {
-      return true
-    }
-  }
+  return zone.some(([r, c]) => r === row && c === col)
 }
+
+const path = findPath([1, 7])
 </script>
 <template>
   <div>
-    <div v-for="row in 15" :key="row" class="row">
+    <div v-for="row in BOARD_SIZE" :key="row" class="row">
       <div
-        v-for="col in 15"
+        v-for="col in BOARD_SIZE"
         :key="col"
         class="col"
         :class="{
@@ -40,6 +44,7 @@ const isZone = (zone, row, col) => {
           'blue-zone': isZone(blueZone, row, col),
           'yellow-zone': isZone(yellowZone, row, col),
           'green-zone': isZone(greenZone, row, col),
+          'path-zone': isZone(path, row, col),
         }"
       >
         {{ row + ', ' + col }}
@@ -52,7 +57,6 @@ const isZone = (zone, row, col) => {
   display: flex;
 }
 .col {
-  background: whitesmoke;
   border: solid black 1px;
   color: black;
   font-size: xx-small;
@@ -70,5 +74,8 @@ const isZone = (zone, row, col) => {
 }
 .green-zone {
   background: green;
+}
+.path-zone {
+  background: whitesmoke;
 }
 </style>
