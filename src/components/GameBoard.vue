@@ -4,10 +4,10 @@ import { ref } from 'vue'
 import { ZONE_SIZE, BOARD_SIZE } from '../constants/board'
 
 /**
- * Generates coordinates for a zone based on its position
- * @param moveRight - Whether to move the zone to the right
- * @param moveDown - Whether to move the zone down
- * @returns Array of [row, col] coordinates for the zone
+ * Generates coordinates for a zone based on its position on the board
+ * @param {boolean} moveRight - If true, shifts the zone 10 columns to the right
+ * @param {boolean} moveDown - If true, shifts the zone 10 rows down
+ * @returns {Array<Array<number>>} Array of [row, col] coordinates representing the zone positions
  */
 const zoneGenerator = (moveRight, moveDown) => {
   const zone = []
