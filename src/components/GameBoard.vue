@@ -26,7 +26,19 @@ const blueZone = ref(zoneGenerator(true, false))
 const yellowZone = ref(zoneGenerator(true, true))
 const greenZone = ref(zoneGenerator(false, true))
 
+/**
+ * Checks if a given row and column match a zone or coordinate
+ * @param {Array<Array<number>> | Array<number>} zone - Either an array of [row, col] coordinates or a single [row, col] coordinate
+ * @param {number} row - The row to check
+ * @param {number} col - The column to check
+ * @returns {boolean} True if the row and column match the zone or coordinate
+ */
 const isZone = (zone, row, col) => {
+  if (!Array.isArray(zone[0])) {
+    // Handle single coordinate case
+    return zone[0] === row && zone[1] === col
+  }
+  // Handle array of coordinates case
   return zone.some(([r, c]) => r === row && c === col)
 }
 
