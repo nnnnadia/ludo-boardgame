@@ -13,8 +13,8 @@ const zoneGenerator = (moveRight, moveDown) => {
   const zone = []
   for (let r = 1; r <= ZONE_SIZE; r++) {
     for (let c = 1; c <= ZONE_SIZE; c++) {
-      const row = r + moveDown * 10
-      const col = c + moveRight * 10
+      const row = r + (moveDown ? 10 : 0)
+      const col = c + (moveRight ? 10 : 0)
       zone.push([row, col])
     }
   }
