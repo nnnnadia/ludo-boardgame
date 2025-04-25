@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  base: "https://nnnnadia.github.io/ludo-boardgame/",
+  base: "/ludo-boardgame/",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
