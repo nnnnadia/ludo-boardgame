@@ -25,7 +25,7 @@ export const YELLOW_BASE = baseGenerator(true, true)
 export const GREEN_BASE = baseGenerator(false, true)
 
 // Start positions
-export const RED_START = [2, 7] as [number, number]
-export const BLUE_START = [7, 14] as [number, number]
-export const YELLOW_START = [14, 9] as [number, number]
-export const GREEN_START = [9, 2] as [number, number]
+export const RED_START = [7, 2] as [number, number]
+export const BLUE_START = [2, 9] as [number, number]
+export const YELLOW_START = [9, 14] as [number, number]
+export const GREEN_START = [14, 7] as [number, number]

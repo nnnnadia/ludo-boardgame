@@ -63,7 +63,7 @@ const path = findPath([1, 7])
 }
 
 .yellow-base {
-  background: yellow;
+  background: gold;
 }
 
 .green-base {
