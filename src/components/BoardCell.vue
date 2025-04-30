@@ -110,6 +110,7 @@ const getCenterCellType = (row, col) => {
 
 .cell-map-label {
   position: absolute;
+  display: none;
 }
 
 .star {
