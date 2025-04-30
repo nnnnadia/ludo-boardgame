@@ -1,9 +1,13 @@
 <script setup>
 import {
-  RED_START,
-  BLUE_START,
-  YELLOW_START,
-  GREEN_START
+  WEST_START,
+  NORTH_START,
+  EAST_START,
+  SOUTH_START,
+  WEST_COLOR,
+  NORTH_COLOR,
+  EAST_COLOR,
+  SOUTH_COLOR
 } from '../constants/base'
 
 const props = defineProps({
@@ -39,22 +43,38 @@ const onSquare = (coordinate, row, col) => {
  * @returns {boolean} True if the position is any of the colored start squares
  */
 const isStart = (row, col) => {
-  return onSquare(RED_START, row, col) ||
-         onSquare(BLUE_START, row, col) ||
-         onSquare(YELLOW_START, row, col) ||
-         onSquare(GREEN_START, row, col)
+  return onSquare(WEST_START, row, col) ||
+         onSquare(NORTH_START, row, col) ||
+         onSquare(EAST_START, row, col) ||
+         onSquare(SOUTH_START, row, col)
+}
+
+const getCenterCellType = (row, col) => {
+  const map = {
+    '7,7': 'nw', '7,8': 'n', '7,9': 'ne',
+    '8,7': 'w', '8,8': 'c', '8,9': 'e',
+    '9,7': 'sw', '9,8': 's', '9,9': 'se',
+  }
+  return map[`${row},${col}`] || null
 }
 </script>
 
 <template>
   <div
     class="cell"
+    :style="{
+      '--west-color': WEST_COLOR,
+      '--north-color': NORTH_COLOR,
+      '--east-color': EAST_COLOR,
+      '--south-color': SOUTH_COLOR
+    }"
     :class="{
       ...classes,
-      'red-start': onSquare(RED_START, row, col),
-      'blue-start': onSquare(BLUE_START, row, col),
-      'yellow-start': onSquare(YELLOW_START, row, col),
-      'green-start': onSquare(GREEN_START, row, col),
+      'west-start': onSquare(WEST_START, row, col),
+      'north-start': onSquare(NORTH_START, row, col),
+      'east-start': onSquare(EAST_START, row, col),
+      'south-start': onSquare(SOUTH_START, row, col),
+      [`center-${getCenterCellType(row, col)}`]: getCenterCellType(row, col)
     }"
   >
     <p class="cell-map-label">{{ row + ', ' + col }}</p>
@@ -63,10 +83,10 @@ const isStart = (row, col) => {
       :class="[
         'star',
         {
-          'red-start': onSquare(RED_START, row, col),
-          'blue-start': onSquare(BLUE_START, row, col),
-          'yellow-start': onSquare(YELLOW_START, row, col),
-          'green-start': onSquare(GREEN_START, row, col),
+          'west-start': onSquare(WEST_START, row, col),
+          'north-start': onSquare(NORTH_START, row, col),
+          'east-start': onSquare(EAST_START, row, col),
+          'south-start': onSquare(SOUTH_START, row, col),
         }
       ]"
     />
@@ -86,22 +106,6 @@ const isStart = (row, col) => {
   position: absolute;
 }
 
-.red-start {
-  color: red;
-}
-
-.blue-start {
-  background: blue;
-}
-
-.yellow-start {
-  background: gold;
-}
-
-.green-start {
-  background: green;
-}
-
 .star {
   width: 38px;
   height: 38px;
@@ -110,16 +114,32 @@ const isStart = (row, col) => {
   mask: url('../assets/star.svg') no-repeat center/contain;
   background: gray; /* fallback */
 }
-.red-start.star {
-  background: red;
+.west-start.star {
+  background: var(--west-color);
 }
-.blue-start.star {
-  background: blue;
+.north-start.star {
+  background: var(--north-color);
 }
-.yellow-start.star {
-  background: gold;
+.east-start.star {
+  background: var(--east-color);
 }
-.green-start.star {
-  background: green;
+.south-start.star {
+  background: var(--south-color);
+}
+
+.center-nw {
+  background: conic-gradient(var(--north-color) 134deg, var(--west-color) 134deg 315deg, var(--north-color) 315deg);
+}
+.center-ne {
+  background: conic-gradient(var(--north-color) 45deg, var(--east-color) 45deg 225deg, var(--north-color) 225deg)
+}
+.center-c {
+  background: conic-gradient(var(--north-color) 45deg, var(--east-color) 45deg 135deg, var(--south-color) 135deg 225deg, var(--west-color) 225deg 315deg, var(--north-color) 315deg)
+}
+.center-sw {
+  background: conic-gradient(var(--west-color) 45deg, var(--south-color) 45deg 225deg, var(--west-color) 225deg)
+}
+.center-se {
+  background: conic-gradient(var(--east-color) 134deg, var(--south-color) 134deg 315deg, var(--east-color) 315deg)
 }
 </style>

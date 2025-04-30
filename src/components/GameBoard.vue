@@ -3,17 +3,21 @@ import { findPath } from '../mappings/totalPath'
 import { ref } from 'vue'
 import { BOARD_SIZE } from '../constants/board'
 import {
-  RED_BASE,
-  BLUE_BASE,
-  YELLOW_BASE,
-  GREEN_BASE
+  WEST_ZONE,
+  NORTH_ZONE,
+  EAST_ZONE,
+  SOUTH_ZONE,
+  WEST_COLOR,
+  NORTH_COLOR,
+  EAST_COLOR,
+  SOUTH_COLOR
 } from '../constants/base'
 import BoardCell from './BoardCell.vue'
 
-const redBase = ref(RED_BASE)
-const blueBase = ref(BLUE_BASE)
-const yellowBase = ref(YELLOW_BASE)
-const greenBase = ref(GREEN_BASE)
+const westZone = ref(WEST_ZONE)
+const northZone = ref(NORTH_ZONE)
+const eastZone = ref(EAST_ZONE)
+const southZone = ref(SOUTH_ZONE)
 
 /**
  * Checks if a given row and column match any coordinate in a zone
@@ -30,7 +34,12 @@ const path = findPath([1, 7])
 </script>
 
 <template>
-  <div>
+  <div :style="{
+    '--west-color': WEST_COLOR,
+    '--north-color': NORTH_COLOR,
+    '--east-color': EAST_COLOR,
+    '--south-color': SOUTH_COLOR
+  }">
     <div v-for="row in BOARD_SIZE" :key="row" class="row">
       <BoardCell
         v-for="col in BOARD_SIZE"
@@ -38,10 +47,10 @@ const path = findPath([1, 7])
         :row="row"
         :col="col"
         :classes="{
-          'red-base': onZone(redBase, row, col),
-          'blue-base': onZone(blueBase, row, col),
-          'yellow-base': onZone(yellowBase, row, col),
-          'green-base': onZone(greenBase, row, col),
+          'west-zone': onZone(westZone, row, col),
+          'north-zone': onZone(northZone, row, col),
+          'east-zone': onZone(eastZone, row, col),
+          'south-zone': onZone(southZone, row, col),
           'path-square': onZone(path, row, col),
         }"
       />
@@ -54,20 +63,20 @@ const path = findPath([1, 7])
   display: flex;
 }
 
-.red-base {
-  background: red;
+.west-zone {
+  background: var(--west-color);
 }
 
-.blue-base {
-  background: blue;
+.north-zone {
+  background: var(--north-color);
 }
 
-.yellow-base {
-  background: gold;
+.east-zone {
+  background: var(--east-color);
 }
 
-.green-base {
-  background: green;
+.south-zone {
+  background: var(--south-color);
 }
 
 .path-square {

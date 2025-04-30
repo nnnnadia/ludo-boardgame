@@ -19,13 +19,45 @@ const baseGenerator = (moveRight: boolean, moveDown: boolean): Array<Array<numbe
 }
 
 // Base positions
-export const RED_BASE = baseGenerator(false, false)
-export const BLUE_BASE = baseGenerator(true, false)
-export const YELLOW_BASE = baseGenerator(true, true)
-export const GREEN_BASE = baseGenerator(false, true)
+export const WEST_BASE = baseGenerator(false, false)
+export const NORTH_BASE = baseGenerator(true, false)
+export const EAST_BASE = baseGenerator(true, true)
+export const SOUTH_BASE = baseGenerator(false, true)
 
 // Start positions
-export const RED_START = [7, 2] as [number, number]
-export const BLUE_START = [2, 9] as [number, number]
-export const YELLOW_START = [9, 14] as [number, number]
-export const GREEN_START = [14, 7] as [number, number]
+export const WEST_START = [7, 1] as [number, number]
+export const NORTH_START = [1, 9] as [number, number]
+export const EAST_START = [9, 15] as [number, number]
+export const SOUTH_START = [15, 7] as [number, number]
+
+// Final line positions
+export const WEST_HOME_STRETCH = [
+  [8, 2], [8, 3], [8, 4], [8, 5], [8, 6], [8, 7]
+] as [number, number][]
+export const NORTH_HOME_STRETCH = [
+  [2, 8], [3, 8], [4, 8], [5, 8], [6, 8], [7, 8]
+] as [number, number][]
+export const EAST_HOME_STRETCH = [
+  [8, 14], [8, 13], [8, 12], [8, 11], [8, 10], [8, 9]
+] as [number, number][]
+export const SOUTH_HOME_STRETCH = [
+  [14, 8], [13, 8], [12, 8], [11, 8], [10, 8], [9, 8]
+] as [number, number][]
+
+// Last position
+export const WEST_LAST = WEST_HOME_STRETCH[WEST_HOME_STRETCH.length - 1] as [number, number]
+export const NORTH_LAST = NORTH_HOME_STRETCH[NORTH_HOME_STRETCH.length - 1] as [number, number]
+export const EAST_LAST = EAST_HOME_STRETCH[EAST_HOME_STRETCH.length - 1] as [number, number]
+export const SOUTH_LAST = SOUTH_HOME_STRETCH[SOUTH_HOME_STRETCH.length - 1] as [number, number]
+
+// Every position zone
+export const WEST_ZONE = [...WEST_BASE, ...WEST_HOME_STRETCH]
+export const NORTH_ZONE = [...NORTH_BASE, ...NORTH_HOME_STRETCH]
+export const EAST_ZONE = [...EAST_BASE, ...EAST_HOME_STRETCH]
+export const SOUTH_ZONE = [...SOUTH_BASE, ...SOUTH_HOME_STRETCH]
+
+// Player color constants
+export const WEST_COLOR = 'red'
+export const NORTH_COLOR = 'blue'
+export const EAST_COLOR = 'gold'
+export const SOUTH_COLOR = 'green'
