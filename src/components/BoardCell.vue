@@ -49,6 +49,12 @@ const isStart = (row, col) => {
          onSquare(SOUTH_START, row, col)
 }
 
+/**
+ * Returns the type of center cell based on its row and column coordinates.
+ * @param {number} row - The row index of the cell.
+ * @param {number} col - The column index of the cell.
+ * @returns {string|null} The type of the center cell (e.g., 'nw', 'n', 'ne', 'w', 'c', 'e', 'sw', 's', 'se'), or null if not a center cell.
+ */
 const getCenterCellType = (row, col) => {
   const map = {
     '7,7': 'nw', '7,8': 'n', '7,9': 'ne',
