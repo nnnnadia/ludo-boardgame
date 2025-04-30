@@ -13,7 +13,7 @@ import {
   SOUTH_COLOR
 } from '../constants/base'
 import BoardCell from './BoardCell.vue'
-
+import DiceDisplay from './Dice.vue'
 const westZone = ref(WEST_ZONE)
 const northZone = ref(NORTH_ZONE)
 const eastZone = ref(EAST_ZONE)
@@ -34,6 +34,7 @@ const path = findPath([1, 7])
 </script>
 
 <template>
+  <DiceDisplay />
   <div :style="{
     '--west-color': WEST_COLOR,
     '--north-color': NORTH_COLOR,

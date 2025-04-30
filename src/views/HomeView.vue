@@ -4,7 +4,6 @@ import GameBoard from '../components/GameBoard.vue'
 
 <template>
   <main>
-    <img id="ludo-picture" src="../assets/ludo-picture.jpg" alt="Ludo Board" />
     <GameBoard />
   </main>
 </template>
@@ -14,8 +13,5 @@ main {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-#ludo-picture {
-  width: 500px;
 }
 </style>
