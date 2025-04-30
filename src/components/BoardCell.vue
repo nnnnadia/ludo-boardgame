@@ -1,5 +1,9 @@
 <script setup>
 import {
+  WEST_BASE,
+  NORTH_BASE,
+  EAST_BASE,
+  SOUTH_BASE,
   WEST_START,
   NORTH_START,
   EAST_START,
@@ -7,7 +11,11 @@ import {
   WEST_COLOR,
   NORTH_COLOR,
   EAST_COLOR,
-  SOUTH_COLOR
+  SOUTH_COLOR,
+  WEST_HOME,
+  NORTH_HOME,
+  EAST_HOME,
+  SOUTH_HOME
 } from '../constants/base'
 
 const props = defineProps({
@@ -26,6 +34,17 @@ const props = defineProps({
 })
 
 /**
+ * Checks if a given row and column match any coordinate in a zone
+ * @param {Array<Array<number>>} zone - Array of [row, col] coordinates
+ * @param {number} row - The row to check
+ * @param {number} col - The column to check
+ * @returns {boolean} True if the row and column match any coordinate in the zone
+ */
+ const onZone = (zone, row, col) => {
+  return zone.some(([r, c]) => r === row && c === col)
+}
+
+/**
  * Checks if a given row and column match a single coordinate
  * @param {[number, number]} coordinate - A single [row, col] coordinate
  * @param {number} row - The row to check
@@ -35,6 +54,20 @@ const props = defineProps({
 const onSquare = (coordinate, row, col) => {
   return coordinate[0] === row && coordinate[1] === col
 }
+
+/**
+ * Checks if a given row and column correspond to a cell on the board
+ * @param {number} row - The row index of the cell
+ * @param {number} col - The column index of the cell
+ * @returns {boolean} True if the position is a cell on the board, false otherwise
+ */
+const isSquare = (row, col) => {
+  return !onZone(WEST_BASE, row, col) &&
+         !onZone(NORTH_BASE, row, col) &&
+         !onZone(EAST_BASE, row, col) &&
+         !onZone(SOUTH_BASE, row, col)
+}
+
 
 /**
  * Checks if a given row and column correspond to any of the colored start positions
@@ -47,6 +80,19 @@ const isStart = (row, col) => {
          onSquare(NORTH_START, row, col) ||
          onSquare(EAST_START, row, col) ||
          onSquare(SOUTH_START, row, col)
+}
+
+/**
+ * Checks if a given row and column correspond to any of the colored home positions
+ * @param {number} row - The row to check
+ * @param {number} col - The column to check
+ * @returns {boolean} True if the position is any of the colored home squares
+ */
+const isHome = (row, col) => {
+  return onZone(WEST_HOME, row, col) ||
+         onZone(NORTH_HOME, row, col) ||
+         onZone(EAST_HOME, row, col) ||
+         onZone(SOUTH_HOME, row, col)
 }
 
 /**
@@ -76,6 +122,7 @@ const getCenterCellType = (row, col) => {
     }"
     :class="{
       ...classes,
+      'square': isSquare(row, col),
       'west-start': onSquare(WEST_START, row, col),
       'north-start': onSquare(NORTH_START, row, col),
       'east-start': onSquare(EAST_START, row, col),
@@ -96,16 +143,22 @@ const getCenterCellType = (row, col) => {
         }
       ]"
     />
+    <div
+      v-if="isHome(row, col)"
+      class="home"
+    />
   </div>
 </template>
 
 <style scoped>
 .cell {
-  border: solid black 1px;
-  color: gray;
-  font-size: xx-small;
   width: 40px;
   height: 40px;
+  font-size: xx-small;
+}
+.square {
+  border: solid black 1px;
+  color: gray;
 }
 
 .cell-map-label {
@@ -132,6 +185,17 @@ const getCenterCellType = (row, col) => {
 }
 .south-start.star {
   background: var(--south-color);
+}
+
+.home {
+  width: 50px;
+  height: 50px;
+  background: whitesmoke;
+  border: solid black 1px;
+  border-radius: 50%;
+  position: relative;
+  top: -6px;
+  left: -6px;
 }
 
 .center-nw {

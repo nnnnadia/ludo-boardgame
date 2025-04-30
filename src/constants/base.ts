@@ -24,6 +24,12 @@ export const NORTH_BASE = baseGenerator(true, false)
 export const EAST_BASE = baseGenerator(true, true)
 export const SOUTH_BASE = baseGenerator(false, true)
 
+// Home positions
+export const WEST_HOME = [[2, 2], [2, 4], [4, 2], [4, 4]] as [number, number][]
+export const NORTH_HOME = [[2, 12], [2, 14], [4, 12], [4, 14]] as [number, number][]
+export const EAST_HOME = [[12, 12], [12, 14], [14, 12], [14, 14]] as [number, number][]
+export const SOUTH_HOME = [[12, 2], [12, 4], [14, 2], [14, 4]] as [number, number][]
+
 // Start positions
 export const WEST_START = [7, 1] as [number, number]
 export const NORTH_START = [1, 9] as [number, number]
