@@ -14,10 +14,6 @@ import {
 } from '../constants/base'
 import BoardCell from './BoardCell.vue'
 import DiceDisplay from './Dice.vue'
-const westZone = ref(WEST_ZONE)
-const northZone = ref(NORTH_ZONE)
-const eastZone = ref(EAST_ZONE)
-const southZone = ref(SOUTH_ZONE)
 
 /**
  * Checks if a given row and column match any coordinate in a zone
@@ -48,10 +44,10 @@ const path = findPath([1, 7])
         :row="row"
         :col="col"
         :classes="{
-          'west-zone': onZone(westZone, row, col),
-          'north-zone': onZone(northZone, row, col),
-          'east-zone': onZone(eastZone, row, col),
-          'south-zone': onZone(southZone, row, col),
+          'west-zone': onZone(WEST_ZONE, row, col),
+          'north-zone': onZone(NORTH_ZONE, row, col),
+          'east-zone': onZone(EAST_ZONE, row, col),
+          'south-zone': onZone(SOUTH_ZONE, row, col),
           'path-square': onZone(path, row, col),
         }"
       />
